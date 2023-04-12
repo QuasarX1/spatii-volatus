@@ -9,6 +9,8 @@
     <Import_RootNamespace>network_objects</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DataReciver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkedDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SerialisationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)_NetworkedDataObject.cs" />

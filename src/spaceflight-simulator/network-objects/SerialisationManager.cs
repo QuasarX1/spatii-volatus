@@ -54,17 +54,19 @@ namespace network_objects
             where T : NetworkedDataObject, new()
             => NetworkedDataObject.FromBytes<T>(ref data, buffer_offset_index);
 
-        public NetworkedDataObject[] GetAllObjects(ref byte[] data)
+        public Tuple<Type[], NetworkedDataObject[]> GetAllObjects(ref byte[] data)
         {
             Tuple<int, int[], int[]> info = GetObjectsInfo(ref data);
             NetworkedDataObject[] objects = new NetworkedDataObject[info.Item2.Length];
+            Type[] types = new Type[info.Item2.Length];
             int start_offset = info.Item1;
             for (byte i = 0; i < info.Item2.Length; i++)
             {
-                objects[i] = NetworkedDataObject.FromBytes(GetTypeFromId(info.Item2[i]), ref data, start_offset);
+                types[i] = GetTypeFromId(info.Item2[i]);
+                objects[i] = NetworkedDataObject.FromBytes(types[i], ref data, start_offset);
                 start_offset += info.Item3[i];
             }
-            return objects;
+            return new Tuple<Type[], NetworkedDataObject[]>(types, objects);
         }
 
         public Type GetTypeFromId(int id)
@@ -72,7 +74,7 @@ namespace network_objects
             return typeof(Vector3);//TODO: lookup
         }
 
-        public static byte[] SerialiseObjects(ref NetworkedDataObject[] target_objects, ref byte[] buffer)
+        public static void SerialiseObjects(ref NetworkedDataObject[] target_objects, ref byte[] buffer)
         {
             if (target_objects.Length > byte.MaxValue)
             {
@@ -92,7 +94,6 @@ namespace network_objects
             {
                 buffer_offset += target_objects[i].Serialise(ref buffer, ref buffer_offset);
             }
-            return buffer;
         }
     }
 }
