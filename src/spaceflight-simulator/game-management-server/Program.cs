@@ -8,20 +8,8 @@ namespace game_management_server
 {
     internal class Program
     {
-        private const int PacketSize = 1380;
-        private static readonly IPEndPoint _blankEndpoint = new IPEndPoint(IPAddress.Any, 0);
-
-        static async Task Main(string[] args)
-        {
-            // Get a cancel source that cancels when the user presses CTRL+C.
-            var userExitSource = GetUserConsoleCancellationSource();
-            var cancelToken = userExitSource.Token;
-
-            Console.WriteLine("Listening on 0.0.0.0:9999");
-            network_objects.DataReciver reciver = new network_objects.DataReciver(9999);
-
-            await reciver.DoReciveAsync(new Action<Tuple<Type[], network_objects.NetworkedDataObject[]>>(PrintX), cancelToken);
-        }
+        public static readonly CancellationTokenSource ConsoleExitTokenSource = GetUserConsoleCancellationSource();
+        public static readonly CancellationToken CancelToken = ConsoleExitTokenSource.Token;
 
         private static CancellationTokenSource GetUserConsoleCancellationSource()
         {
@@ -36,7 +24,15 @@ namespace game_management_server
             return cancellationSource;
         }
 
-        private static void PrintX(Tuple<Type[], network_objects.NetworkedDataObject[]> data)
+        static async Task Main(string[] args)
+        {
+            Console.WriteLine("Listening on 0.0.0.0:9999");
+            network_objects.DataReciver reciver = new network_objects.DataReciver(9999);
+
+            await reciver.DoReciveAsync(new Action<Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult>>(PrintX), CancelToken);
+        }
+
+        private static void PrintX(Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult> data)
         {
             Console.WriteLine(((network_objects.Vector3)data.Item2[0]).x);
         }

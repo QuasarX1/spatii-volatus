@@ -7,6 +7,9 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace network_objects
 {
+    /// <summary>
+    /// Based on https://enclave.io/high-performance-udp-sockets-net6/
+    /// </summary>
     public class DataReciver
     {
         public IPAddress Address { get; private set; }
@@ -42,14 +45,16 @@ namespace network_objects
             Kill();
         }
 
-        public async Task<Tuple<Type[], network_objects.NetworkedDataObject[]>> DoReciveOneAsync(CancellationToken cancelToken)
+        public async Task<Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult>> DoReciveOneAsync(CancellationToken cancelToken)
         {
             var result = await _socket.ReceiveFromAsync(_buffer_memory, SocketFlags.None, _blankEndpoint, cancelToken);
 
-            return _manager.GetAllObjects(ref _buffer);
+            var object_data = _manager.GetAllObjects(ref _buffer);
+
+            return new Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult>(object_data.Item1, object_data.Item2, result);
         }
 
-        public async Task DoReciveAsync(Action<Tuple<Type[], network_objects.NetworkedDataObject[]>> handeler, CancellationToken cancelToken)
+        public async Task DoReciveAsync(Action<Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult>> handeler, CancellationToken cancelToken)
         {
             while (!cancelToken.IsCancellationRequested)
             {
@@ -57,7 +62,9 @@ namespace network_objects
                 {
                     var result = await _socket.ReceiveFromAsync(_buffer_memory, SocketFlags.None, _blankEndpoint, cancelToken);
 
-                    handeler.Invoke(_manager.GetAllObjects(ref _buffer));
+                    var object_data = _manager.GetAllObjects(ref _buffer);
+
+                    handeler.Invoke(new Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult>(object_data.Item1, object_data.Item2, result));
                 }
                 catch (SocketException)
                 {

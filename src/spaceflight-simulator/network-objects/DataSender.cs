@@ -6,8 +6,12 @@ using System.Text;
 
 namespace network_objects
 {
+    /// <summary>
+    /// Based on https://enclave.io/high-performance-udp-sockets-net6/
+    /// </summary>
     public class DataSender
     {
+        public bool DefaultAddressSet { get; private set; }
         public IPAddress DestinationAddress { get; private set; }
         public int Port { get; private set; }
 
@@ -17,9 +21,10 @@ namespace network_objects
         private byte[] _buffer;
         private Memory<byte> _buffer_memory;
 
-        public DataSender(IPAddress destination_address, int port)
+        public DataSender(int port, IPAddress? destination_address = null)
         {
-            DestinationAddress = destination_address;
+            DefaultAddressSet = destination_address != null;
+            DestinationAddress = (!DefaultAddressSet) ? IPAddress.Any : destination_address;
             Port = port;
             _destination_endpoint = new IPEndPoint(DestinationAddress, Port);
 
@@ -42,9 +47,23 @@ namespace network_objects
 
         public async Task DoSendOneAsync(network_objects.NetworkedDataObject[] data, CancellationToken cancelToken)
         {
+            if (DefaultAddressSet)
+            {
+                network_objects.SerialisationManager.SerialiseObjects(ref data, ref _buffer);
+
+                await _socket.SendToAsync(_buffer_memory, SocketFlags.None, _destination_endpoint, cancelToken);
+            }
+            else
+            {
+                throw new InvalidOperationException("Object was not initialised with a default target.");
+            }
+        }
+
+        public async Task DoTargetedSendOneAsync(network_objects.NetworkedDataObject[] data, IPEndPoint target, CancellationToken cancelToken)
+        {
             network_objects.SerialisationManager.SerialiseObjects(ref data, ref _buffer);
 
-            await _socket.SendToAsync(_buffer_memory, SocketFlags.None, _destination_endpoint, cancelToken);
+            await _socket.SendToAsync(_buffer_memory, SocketFlags.None, target, cancelToken);
         }
     }
 }
