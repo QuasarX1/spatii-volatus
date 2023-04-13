@@ -23,7 +23,8 @@ namespace network_objects
 
         public DataReciver(int port, IPAddress? address = null)
         {
-            Address = (address == null) ? IPAddress.Any : address;
+            //Console.WriteLine(_manager.testDict[0].ToString());
+            Address = address ?? IPAddress.Any;
             Port = port;
 
             _socket = new Socket(SocketType.Dgram, ProtocolType.Udp);
@@ -66,11 +67,8 @@ namespace network_objects
 
                     handeler.Invoke(new Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult>(object_data.Item1, object_data.Item2, result));
                 }
-                catch (SocketException)
-                {
-                    // Socket exception means we are finished.
-                    break;
-                }
+                catch (OperationCanceledException) { break; }
+                catch (SocketException) { break; }
             }
         }
     }

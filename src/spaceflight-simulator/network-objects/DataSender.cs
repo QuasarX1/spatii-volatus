@@ -24,7 +24,7 @@ namespace network_objects
         public DataSender(int port, IPAddress? destination_address = null)
         {
             DefaultAddressSet = destination_address != null;
-            DestinationAddress = (!DefaultAddressSet) ? IPAddress.Any : destination_address;
+            DestinationAddress = destination_address ?? IPAddress.Any;
             Port = port;
             _destination_endpoint = new IPEndPoint(DestinationAddress, Port);
 

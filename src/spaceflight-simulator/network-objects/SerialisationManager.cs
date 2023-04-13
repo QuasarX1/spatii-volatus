@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace network_objects
 {
     public sealed class SerialisationManager
     {
+        private static Type[] _registered_types = { typeof(Vector3) };
+        private Dictionary<int, Type> _registered_type_by_id = new Dictionary<int, Type>(from Type type in _registered_types select new KeyValuePair<int, Type>((int)type.GetProperty("ID").GetValue(type.GetConstructor(Type.EmptyTypes).Invoke(null)), type));
+        
         private static int id_n_bytes = 4;
         private static int serialisation_length_n_bytes = 4;
         private static int object_info_n_bytes = id_n_bytes + serialisation_length_n_bytes;
@@ -71,7 +75,7 @@ namespace network_objects
 
         public Type GetTypeFromId(int id)
         {
-            return typeof(Vector3);//TODO: lookup
+            return _registered_type_by_id[id];
         }
 
         public static void SerialiseObjects(ref NetworkedDataObject[] target_objects, ref byte[] buffer)
