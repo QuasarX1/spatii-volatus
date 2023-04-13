@@ -35,7 +35,10 @@ namespace game_management_server
 
         private static void PrintX(Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult> data)
         {
+            Console.WriteLine(data.Item1[0]);
             Console.WriteLine(((network_objects.Vector3)data.Item2[0]).x);
+            Console.WriteLine(data.Item1[1]);
+            Console.WriteLine(((network_objects.String)data.Item2[1]).Data);
         }
     }
 }

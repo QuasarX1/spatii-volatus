@@ -8,7 +8,7 @@ namespace network_objects
 {
     public sealed class SerialisationManager
     {
-        private static Type[] _registered_types = { typeof(Vector3) };
+        private static Type[] _registered_types = { typeof(Vector3), typeof(String) };
         private Dictionary<int, Type> _registered_type_by_id = new Dictionary<int, Type>(from Type type in _registered_types select new KeyValuePair<int, Type>((int)type.GetProperty("ID").GetValue(type.GetConstructor(Type.EmptyTypes).Invoke(null)), type));
         
         private static int id_n_bytes = 4;
@@ -24,6 +24,8 @@ namespace network_objects
             {
                 info.Item2[i] = BitConverter.ToInt32(data, 1 + (i * object_info_n_bytes));
                 info.Item3[i] = BitConverter.ToInt32(data, 1 + (i * object_info_n_bytes) + id_n_bytes);
+                Console.WriteLine("ID: " + info.Item2[i].ToString());
+                Console.WriteLine("N Bytes: " + info.Item3[i].ToString());
             }
 
             return info;
@@ -82,7 +84,7 @@ namespace network_objects
         {
             if (target_objects.Length > byte.MaxValue)
             {
-                throw new ArgumentOutOfRangeException("More objects were passes than is permitted. Maximum number is 2^8.");
+                throw new ArgumentOutOfRangeException("More objects were passes than is permitted. Maximum number is 255.");
             }
 
             Tuple<int, int[], int[]> info = GetObjectsInfo(ref target_objects);
@@ -96,6 +98,8 @@ namespace network_objects
             int buffer_offset = 1 + (target_objects.Length * object_info_n_bytes);
             for (int i = 0; i < target_objects.Length; i++)
             {
+                BitConverter.GetBytes(target_objects[i].ID).CopyTo(buffer, 1 + (i * object_info_n_bytes));
+                BitConverter.GetBytes(target_objects[i].SerialisedLength).CopyTo(buffer, 1 + (i * object_info_n_bytes) + id_n_bytes);
                 buffer_offset += target_objects[i].Serialise(ref buffer, ref buffer_offset);
             }
         }

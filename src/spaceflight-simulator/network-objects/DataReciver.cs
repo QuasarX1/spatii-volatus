@@ -31,7 +31,7 @@ namespace network_objects
 
             _socket.Bind(new IPEndPoint(Address, Port));
 
-            _buffer = GC.AllocateArray<byte>(length: 64, pinned: true);
+            _buffer = GC.AllocateArray<byte>(length: 1024, pinned: true);
             _buffer_memory = _buffer.AsMemory();
         }
 

@@ -13,7 +13,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkedDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SerialisationManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)_NetworkedDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Vector3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)_NetworkedDataObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)String.cs" />
   </ItemGroup>
 </Project>

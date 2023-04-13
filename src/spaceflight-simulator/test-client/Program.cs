@@ -24,7 +24,7 @@ namespace test_client
         {
             IPAddress destination = IPAddress.Parse("192.168.0.20");
             network_objects.DataSender sender = new network_objects.DataSender(9999, destination);
-            network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new network_objects.Vector3(50, 0, 0) };
+            network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new network_objects.Vector3(50, 0, 0), new network_objects.String("Hello World!") };
             Console.WriteLine($"Sending to {destination}:9999");
             while (!CancelToken.IsCancellationRequested)
             {
