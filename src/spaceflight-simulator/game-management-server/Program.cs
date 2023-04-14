@@ -2,8 +2,11 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+
+using static network_objects.NetworkSettings;
 
 namespace game_management_server
 {
@@ -25,12 +28,16 @@ namespace game_management_server
             return cancellationSource;
         }
 
+        private const int PORT = SERVER_PORT;
+        private static network_objects.Communicator communicator;
+
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Listening on 0.0.0.0:9999");
-            network_objects.DataReciver reciver = new network_objects.DataReciver(9999);
-
-            await reciver.DoReciveAsync(new Action<Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult>>(PrintX), CancelToken);
+            communicator = new network_objects.Communicator(PORT, CancelToken);
+            communicator.OnRecieveMessage += PrintX;
+            communicator.StartReciever();
+            communicator.StartSender();
+            await communicator.CompleteOnKill();
         }
 
         private static void PrintX(Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult> data)

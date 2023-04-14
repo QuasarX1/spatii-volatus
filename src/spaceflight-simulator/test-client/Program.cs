@@ -1,5 +1,8 @@
-﻿using System.Net.Sockets;
+﻿using System.Diagnostics;
+using System.Net.Sockets;
 using System.Net;
+
+using static network_objects.NetworkSettings;
 
 namespace test_client
 {
@@ -20,16 +23,37 @@ namespace test_client
 
             return cancellationSource;
         }
+
+
+
+        private const int PORT = DEFAULT_CLIENT_PORT;
+        private static network_objects.Communicator communicator;
+
         static async Task Main(string[] args)
         {
-            IPAddress destination = IPAddress.Parse("192.168.0.20");
-            network_objects.DataSender sender = new network_objects.DataSender(9999, destination);
+            communicator = new network_objects.Communicator(PORT, SERVER_PORT, IPAddress.Parse("192.168.0.20"));
+            //communicator.OnRecieveMessage += ;
+            communicator.StartReciever();
+            communicator.StartSender();
+
             network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new network_objects.Vector3(50, 0, 0), new network_objects.String("Hello World!") };
-            Console.WriteLine($"Sending to {destination}:9999");
+
+            Stopwatch stopwatch = new Stopwatch();
+
             while (!CancelToken.IsCancellationRequested)
             {
-                await sender.DoSendOneAsync(test_data, CancelToken);
+                Console.Write("Ping ");
+                stopwatch.Start();
+                if (await communicator.PingAsync(CancelToken))
+                {
+                    stopwatch.Stop();
+                    Console.WriteLine($"Pong ({stopwatch.Elapsed.TotalMilliseconds} ms)");
+                    stopwatch.Reset();
+                }
+                //Thread.Sleep(100);
             }
+
+            communicator.Kill();
         }
     }
 }

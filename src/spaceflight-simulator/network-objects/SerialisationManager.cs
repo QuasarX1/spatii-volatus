@@ -24,8 +24,6 @@ namespace network_objects
             {
                 info.Item2[i] = BitConverter.ToInt32(data, 1 + (i * object_info_n_bytes));
                 info.Item3[i] = BitConverter.ToInt32(data, 1 + (i * object_info_n_bytes) + id_n_bytes);
-                Console.WriteLine("ID: " + info.Item2[i].ToString());
-                Console.WriteLine("N Bytes: " + info.Item3[i].ToString());
             }
 
             return info;

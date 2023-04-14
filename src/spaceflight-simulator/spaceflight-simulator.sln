@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game-management-server", "game-management-server\game-management-server.csproj", "{7567DADF-0201-4000-93FD-753953AC0971}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game-management-server", "game-management-server\game-management-server.csproj", "{73AA3846-5E18-48A0-833C-4951BC638A96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-client", "test-client\test-client.csproj", "{D0AB1682-B103-40B0-90BC-420516AEACB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-client", "test-client\test-client.csproj", "{84FD5F70-3B1F-438F-BD66-2BDBC4636264}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "network-objects", "network-objects\network-objects.shproj", "{A31C005E-ECCF-4D64-A60D-CA39D0941B18}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "network-objects", "network-objects\network-objects.shproj", "{3B977E12-1083-4B8D-9661-0925D22EF51E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,24 +15,24 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7567DADF-0201-4000-93FD-753953AC0971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7567DADF-0201-4000-93FD-753953AC0971}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7567DADF-0201-4000-93FD-753953AC0971}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7567DADF-0201-4000-93FD-753953AC0971}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0AB1682-B103-40B0-90BC-420516AEACB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0AB1682-B103-40B0-90BC-420516AEACB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0AB1682-B103-40B0-90BC-420516AEACB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0AB1682-B103-40B0-90BC-420516AEACB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73AA3846-5E18-48A0-833C-4951BC638A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73AA3846-5E18-48A0-833C-4951BC638A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73AA3846-5E18-48A0-833C-4951BC638A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73AA3846-5E18-48A0-833C-4951BC638A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84FD5F70-3B1F-438F-BD66-2BDBC4636264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84FD5F70-3B1F-438F-BD66-2BDBC4636264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84FD5F70-3B1F-438F-BD66-2BDBC4636264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84FD5F70-3B1F-438F-BD66-2BDBC4636264}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BF606B2F-6858-44DC-AEE2-963D1A305CB3}
+		SolutionGuid = {4BD1677F-3059-4379-B790-17ABBB72C048}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		network-objects\network-objects.projitems*{7567dadf-0201-4000-93fd-753953ac0971}*SharedItemsImports = 5
-		network-objects\network-objects.projitems*{a31c005e-eccf-4d64-a60d-ca39d0941b18}*SharedItemsImports = 13
-		network-objects\network-objects.projitems*{d0ab1682-b103-40b0-90bc-420516aeacb2}*SharedItemsImports = 5
+		network-objects\network-objects.projitems*{3b977e12-1083-4b8d-9661-0925d22ef51e}*SharedItemsImports = 13
+		network-objects\network-objects.projitems*{73aa3846-5e18-48a0-833c-4951bc638a96}*SharedItemsImports = 5
+		network-objects\network-objects.projitems*{84fd5f70-3b1f-438f-bd66-2bdbc4636264}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

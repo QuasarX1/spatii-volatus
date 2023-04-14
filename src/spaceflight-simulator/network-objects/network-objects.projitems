@@ -3,18 +3,18 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>a31c005e-eccf-4d64-a60d-ca39d0941b18</SharedGUID>
+    <SharedGUID>3b977e12-1083-4b8d-9661-0925d22ef51e</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>network_objects</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)DataReciver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Communicator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkedDataObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NetworkSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SerialisationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)String.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Vector3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)_NetworkedDataObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)String.cs" />
   </ItemGroup>
 </Project>
