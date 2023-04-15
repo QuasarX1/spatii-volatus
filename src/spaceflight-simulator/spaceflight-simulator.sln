@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "game-management-server", "game-management-server\game-management-server.csproj", "{73AA3846-5E18-48A0-833C-4951BC638A96}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ping-test-client", "test-client\ping-test-client.csproj", "{84FD5F70-3B1F-438F-BD66-2BDBC4636264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ping-test-client", "ping-test-client\ping-test-client.csproj", "{84FD5F70-3B1F-438F-BD66-2BDBC4636264}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "network-objects", "network-objects\network-objects.shproj", "{3B977E12-1083-4B8D-9661-0925D22EF51E}"
 EndProject

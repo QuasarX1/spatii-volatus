@@ -185,6 +185,30 @@ namespace network_objects
             }
         }
 
+        private void ParseMessage(Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult> data, Dictionary<int, Type> message_type_lookup, Action<Message, SocketReceiveFromResult> callback)
+        {
+            Message new_message;
+
+            var constructor = message_type_lookup[((Integer16)data.Item2[0]).Value].GetConstructor(Type.EmptyTypes);
+            if (constructor != null)
+            {
+                new_message = (Message)constructor.Invoke(null);
+            }
+            else
+            {
+                throw new InvalidOperationException("Type provided is not compatible. It must define a blank constructor.");
+            }
+
+            Message.Populate(new_message, data.Item1, data.Item2);
+            
+            callback.Invoke(new_message, data.Item3);
+        }
+
+        public void ParseMessageOnReceive(Dictionary<int, Type> message_type_lookup, Action<Message, SocketReceiveFromResult> callback)
+        {
+            OnRecieveMessage += (Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult> data) => ParseMessage(data, message_type_lookup, callback);
+        }
+
         public async Task<Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult>> ReciveOneAsync(CancellationToken cancelToken)
         {
             var result = await _socket.ReceiveFromAsync(_recieve_buffer_memory, SocketFlags.None, BlankEndpoint, cancelToken);
@@ -194,7 +218,7 @@ namespace network_objects
             return new Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult>(object_data.Item1, object_data.Item2, result);
         }
 
-        public async Task DoReciveAsync(Action<Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult>> handeler, CancellationToken cancelToken)
+        public async Task DoReceiveAsync(Action<Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult>> handeler, CancellationToken cancelToken)
         {
             while (!cancelToken.IsCancellationRequested)
             {
@@ -237,7 +261,7 @@ namespace network_objects
         private async void _reciever()
         {
             OnPing += PingReply;
-            await DoReciveAsync((Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult> message) => { OnRecieveMessage?.Invoke(message); }, internalCancellationToken);
+            await DoReceiveAsync((Tuple<Type[], NetworkedDataObject[], SocketReceiveFromResult> message) => { OnRecieveMessage?.Invoke(message); }, internalCancellationToken);
             OnPing -= PingReply;
         }
 
@@ -302,6 +326,11 @@ namespace network_objects
         public void QueueMessage(NetworkedDataObject message_data)
         {
             QueueMessage(new NetworkedDataObject[] { message_data });
+        }
+
+        public void QueueMessage(Message message_object)
+        {
+            QueueMessage(message_object.GetData());
         }
     }
 }

@@ -62,5 +62,18 @@ namespace network_objects
             ob.IsPopulated = true;
             return ob;
         }
+
+        internal abstract string? String_Conversion();
+
+        public override string? ToString()
+        {
+            return String_Conversion();
+        }
+    }
+
+    public abstract class NetworkedDataObject<T> : NetworkedDataObject
+    {
+        public T Value { get; protected set; }
+        public NetworkedDataObject(int class_id, int serialised_length) : base(class_id, serialised_length) { }
     }
 }

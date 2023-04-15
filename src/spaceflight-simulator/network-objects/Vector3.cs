@@ -5,7 +5,7 @@ using System.Text;
 
 namespace network_objects
 {
-    public class Vector3 : NetworkedDataObject
+    public sealed class Vector3 : NetworkedDataObject<System.Numerics.Vector3>
     {
         private static int id = 0;
         private static int serialised_length = 12;
@@ -13,35 +13,38 @@ namespace network_objects
 
 
 
-        private float[] data = new float[3];
-        public float x => data[0];
-        public float y => data[1];
-        public float z => data[2];
+        //public System.Numerics.Vector3 Value { get; private set; }
+        public float X { get { return Value.X; } }
+        public float Y { get { return Value.X; } }
+        public float Z { get { return Value.X; } }
 
-        public Vector3(float[] values) : base(id, serialised_length)
+        public Vector3(System.Numerics.Vector3 values) : base(id, serialised_length)
         {
-            data = values;
+            Value = values;
         }
 
         public Vector3(float x, float y, float z) : base(id, serialised_length)
         {
-            data[0] = x;
-            data[1] = y;
-            data[2] = z;
+            Value = new System.Numerics.Vector3(x, y, z);
         }   
             
         public override void CreateBytes(ref byte[] buffer, ref int offset)
         {
-            BitConverter.GetBytes(data[0]).CopyTo(buffer, offset);
-            BitConverter.GetBytes(data[1]).CopyTo(buffer, offset + 4);
-            BitConverter.GetBytes(data[2]).CopyTo(buffer, offset + 8);
+            BitConverter.GetBytes(X).CopyTo(buffer, offset);
+            BitConverter.GetBytes(Y).CopyTo(buffer, offset + 4);
+            BitConverter.GetBytes(Z).CopyTo(buffer, offset + 8);
         }
 
         internal override void PopulateFromBytes(ref byte[] bytes, ref int offset)
         {
-            data[0] = BitConverter.ToSingle(bytes, offset);
-            data[1] = BitConverter.ToSingle(bytes, offset + 4);
-            data[2] = BitConverter.ToSingle(bytes, offset + 8);
+            Value = new System.Numerics.Vector3(BitConverter.ToSingle(bytes, offset),
+                                                BitConverter.ToSingle(bytes, offset + 4),
+                                                BitConverter.ToSingle(bytes, offset + 8));
+        }
+
+        internal override string? String_Conversion()
+        {
+            return $"{Value.X}, {Value.Y}, {Value.Z}";
         }
     }
 }

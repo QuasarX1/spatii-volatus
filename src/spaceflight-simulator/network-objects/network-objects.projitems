@@ -10,9 +10,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Communicator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Floats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Message.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkedDataObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SerialisationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)String.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Vector3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)_NetworkedDataObject.cs" />
