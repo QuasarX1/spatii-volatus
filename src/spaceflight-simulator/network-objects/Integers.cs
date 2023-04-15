@@ -39,6 +39,21 @@ namespace network_objects
         {
             Value = BitConverter.ToInt16(bytes, offset);
         }
+
+        public static explicit operator short(Integer16 value)
+        {
+            return value.Value;
+        }
+
+        public static explicit operator int(Integer16 value)
+        {
+            return value.Value;
+        }
+
+        public static explicit operator long(Integer16 value)
+        {
+            return value.Value;
+        }
     }
 
     public sealed class Integer32 : IntegerTemplate<int>
@@ -64,9 +79,14 @@ namespace network_objects
             Value = BitConverter.ToInt32(bytes, offset);
         }
 
-        internal override string? String_Conversion()
+        public static explicit operator int(Integer32 value)
         {
-            return Value.ToString();
+            return value.Value;
+        }
+
+        public static explicit operator long(Integer32 value)
+        {
+            return value.Value;
         }
     }
 
@@ -93,9 +113,9 @@ namespace network_objects
             Value = BitConverter.ToInt64(bytes, offset);
         }
 
-        internal override string? String_Conversion()
+        public static explicit operator long(Integer64 value)
         {
-            return Value.ToString();
+            return value.Value;
         }
     }
 }

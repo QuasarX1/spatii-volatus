@@ -161,5 +161,10 @@ namespace network_objects
         {
             return $"{Flag0.ToString()}, {Flag1.ToString()}, {Flag2.ToString()}, {Flag3.ToString()}, {Flag4.ToString()}, {Flag5.ToString()}, {Flag6.ToString()}, {Flag7.ToString()}";
         }
+
+        public static explicit operator bool[](BooleanFlags value)
+        {
+            return new bool[8] { value.Flag0, value.Flag1, value.Flag2, value.Flag3, value.Flag4, value.Flag5, value.Flag6, value.Flag7 };
+        }
     }
 }

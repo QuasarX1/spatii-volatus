@@ -42,7 +42,7 @@ namespace test_client
             communicator.StartReciever();
             communicator.StartSender();
 
-            //network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new network_objects.Vector3(50, 0, 0), new network_objects.String("Hello World!") };
+            //network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new System.Numerics.Vector3(50, 0, 0), "Hello World!" };
 
             
 

@@ -48,5 +48,10 @@ namespace network_objects
         {
             return Value;
         }
+
+        public static explicit operator string(String value)
+        {
+            return value.Value;
+        }
     }
 }

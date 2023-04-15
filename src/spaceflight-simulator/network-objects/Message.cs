@@ -7,7 +7,7 @@ namespace network_objects
 {
     public abstract class Message
     {
-        private NetworkedDataObject[] data;
+        protected NetworkedDataObject[] data;
 
         public readonly short MessageTypeID;
 

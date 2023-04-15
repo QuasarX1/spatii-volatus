@@ -46,5 +46,10 @@ namespace network_objects
         {
             return $"{Value.X}, {Value.Y}, {Value.Z}";
         }
+
+        public static explicit operator System.Numerics.Vector3(Vector3 value)
+        {
+            return value.Value;
+        }
     }
 }

@@ -42,6 +42,16 @@ namespace network_objects
         {
             Value = BitConverter.ToSingle(bytes, offset);
         }
+
+        public static explicit operator float(Float32 value)
+        {
+            return value.Value;
+        }
+
+        public static explicit operator double(Float32 value)
+        {
+            return value.Value;
+        }
     }
 
     public sealed class Float64 : FloatTemplate<double>
@@ -65,6 +75,11 @@ namespace network_objects
         internal override void PopulateFromBytes(ref byte[] bytes, ref int offset)
         {
             Value = BitConverter.ToDouble(bytes, offset);
+        }
+
+        public static explicit operator double(Float64 value)
+        {
+            return value.Value;
         }
     }
 }

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Communicator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExampleMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Floats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Message.cs" />

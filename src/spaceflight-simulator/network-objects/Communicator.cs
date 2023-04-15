@@ -199,7 +199,7 @@ namespace network_objects
                 throw new InvalidOperationException("Type provided is not compatible. It must define a blank constructor.");
             }
 
-            Message.Populate(new_message, data.Item1, data.Item2);
+            Message.Populate(new_message, data.Item1[1..], data.Item2[1..]);
             
             callback.Invoke(new_message, data.Item3);
         }
