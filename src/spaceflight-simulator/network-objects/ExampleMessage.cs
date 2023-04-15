@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace network_objects
+using spaceflight_simulator.network_objects.datatypes;
+
+namespace spaceflight_simulator.network_objects
 {
     public sealed class ExampleMessage : Message
     {

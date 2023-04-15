@@ -1,5 +1,4 @@
-﻿using network_objects;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -7,9 +6,11 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-using static network_objects.NetworkSettings;
+using spaceflight_simulator.network_objects;
+using static spaceflight_simulator.network_objects.NetworkSettings;
+using spaceflight_simulator.messages;
 
-namespace game_management_server
+namespace spaceflight_simulator.game_management_server
 {
     internal class Program
     {
@@ -30,13 +31,13 @@ namespace game_management_server
         }
 
         private const int PORT = SERVER_PORT;
-        private static network_objects.Communicator communicator;
+        private static Communicator communicator;
 
         static async Task Main(string[] args)
         {
             var message_types = Message.MakeLookup(new Type[] { typeof(TestServerMessage) });
 
-            communicator = new network_objects.Communicator(PORT, CancelToken);
+            communicator = new Communicator(PORT, CancelToken);
             communicator.ParseMessageOnReceive(message_types, PrintTestMessage);
             communicator.StartReciever();
             communicator.StartSender();

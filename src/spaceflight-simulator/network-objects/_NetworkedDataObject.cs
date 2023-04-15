@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace network_objects
+namespace spaceflight_simulator.network_objects.datatypes
 {
     internal interface _NetworkedDataObject
     {

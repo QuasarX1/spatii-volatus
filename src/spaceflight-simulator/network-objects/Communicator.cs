@@ -6,7 +6,9 @@ using System.Text;
 using System.Net.NetworkInformation;
 using System.Reflection.Metadata;
 
-namespace network_objects
+using spaceflight_simulator.network_objects.datatypes;
+
+namespace spaceflight_simulator.network_objects
 {
     /// <summary>
     /// Based on https://enclave.io/high-performance-udp-sockets-net6/
@@ -124,7 +126,7 @@ namespace network_objects
             }
         }
 
-        public async Task TargetedSendOneAsync(network_objects.NetworkedDataObject[] data, IPEndPoint target, CancellationToken cancelToken)
+        public async Task TargetedSendOneAsync(NetworkedDataObject[] data, IPEndPoint target, CancellationToken cancelToken)
         {
             if (data.Length == 0)
             {
@@ -276,7 +278,7 @@ namespace network_objects
 
         private async void _sender()
         {
-            Tuple<IPEndPoint?, network_objects.NetworkedDataObject[]> message_data;
+            Tuple<IPEndPoint?, NetworkedDataObject[]> message_data;
             while (!internalCancellationToken.IsCancellationRequested)
             {
                 if (message_queue.TryDequeue(out message_data))
@@ -328,6 +330,11 @@ namespace network_objects
             QueueMessage(new NetworkedDataObject[] { message_data });
         }
 
+        public void QueueMessage(IPEndPoint target, Message message_object)
+        {
+            QueueMessage(target, message_object.GetData());
+        }
+        
         public void QueueMessage(Message message_object)
         {
             QueueMessage(message_object.GetData());

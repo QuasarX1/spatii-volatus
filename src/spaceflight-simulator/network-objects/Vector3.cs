@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace network_objects
+namespace spaceflight_simulator.network_objects.datatypes
 {
     public sealed class Vector3 : NetworkedDataObject<System.Numerics.Vector3>
     {
@@ -15,8 +15,8 @@ namespace network_objects
 
         //public System.Numerics.Vector3 Value { get; private set; }
         public float X { get { return Value.X; } }
-        public float Y { get { return Value.X; } }
-        public float Z { get { return Value.X; } }
+        public float Y { get { return Value.Y; } }
+        public float Z { get { return Value.Z; } }
 
         public Vector3(System.Numerics.Vector3 values) : base(id, serialised_length)
         {
@@ -50,6 +50,11 @@ namespace network_objects
         public static explicit operator System.Numerics.Vector3(Vector3 value)
         {
             return value.Value;
+        }
+
+        public static implicit operator Vector3(System.Numerics.Vector3 value)
+        {
+            return new Vector3(value);
         }
     }
 }

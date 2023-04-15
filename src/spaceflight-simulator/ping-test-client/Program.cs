@@ -1,10 +1,13 @@
 ﻿using System.Diagnostics;
 using System.Net.Sockets;
 using System.Net;
+using System.Numerics;
 
-using static network_objects.NetworkSettings;
+using spaceflight_simulator.network_objects;
+using static spaceflight_simulator.network_objects.NetworkSettings;
+using spaceflight_simulator.messages;
 
-namespace test_client
+namespace spaceflight_simulator.ping_test_client
 {
     internal class Program
     {
@@ -31,18 +34,20 @@ namespace test_client
 
 
         private const int PORT = DEFAULT_CLIENT_PORT;
-        private static network_objects.Communicator communicator;
+        private static Communicator communicator;
 
         static async Task Main(string[] args)
         {
             Console.WriteLine($"Connectingto server on {((args.Length > 0) ? args[0] : "192.168.0.20")}:{PORT}");
-            communicator = new network_objects.Communicator(PORT, SERVER_PORT, IPAddress.Parse((args.Length > 0) ? args[0] : "192.168.0.20"));
+            communicator = new Communicator(PORT, SERVER_PORT, IPAddress.Parse((args.Length > 0) ? args[0] : "192.168.0.20"));
             communicator.PingWaitMillis = 1000;
             //communicator.OnRecieveMessage += ;
             communicator.StartReciever();
             communicator.StartSender();
 
             //network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new System.Numerics.Vector3(50, 0, 0), "Hello World!" };
+            TestServerMessage testMessage = new TestServerMessage("Hello World!", new Vector3(0, 0, 0), new Vector3(10, 0, 0));
+            communicator.QueueMessage(testMessage);
 
             
 
@@ -76,9 +81,15 @@ namespace test_client
 
             Console.WriteLine();
             Console.WriteLine($"Total number of pings: {successes + failiours}");
-            Console.WriteLine($"Successfull pings: {successes}");
-            Console.WriteLine($"Packet loss: {(double)100 * (double)successes / ((double)successes + (double)failiours)}");
-            Console.WriteLine($"Average responce time: {times[0..successes].Sum() / (double)successes} ms");
+            if (successes + failiours > 0)
+            {
+                Console.WriteLine($"Successfull pings: {successes}");
+                Console.WriteLine($"Packet loss: {(double)100 * (double)failiours / ((double)successes + (double)failiours)}");
+                if (successes > 0)
+                {
+                    Console.WriteLine($"Average responce time: {times[0..successes].Sum() / (double)successes} ms");
+                }
+            }
 
             communicator.Kill();
         }

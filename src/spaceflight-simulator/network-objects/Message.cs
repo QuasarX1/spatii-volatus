@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace network_objects
+using spaceflight_simulator.network_objects.datatypes;
+
+namespace spaceflight_simulator.network_objects
 {
     public abstract class Message
     {
@@ -40,7 +43,7 @@ namespace network_objects
         protected abstract bool ValidateDataValues(ref Type[] types, ref NetworkedDataObject[] input_data);
         private bool _ValidateData(ref Type[] types, ref NetworkedDataObject[] input_data)
         {
-            return input_data.Length != data.Length && ValidateDataValues(ref types, ref input_data);
+            return input_data.Length == data.Length && ValidateDataValues(ref types, ref input_data);
         }
 
         internal static void Populate(Message new_object, Type[] types, NetworkedDataObject[] input_data)
@@ -55,7 +58,7 @@ namespace network_objects
 
         internal NetworkedDataObject[] GetData()
         {
-            return data;
+            return data.Prepend((Integer16)MessageTypeID).ToArray();
         }
 
         public abstract string GetDisplayString();

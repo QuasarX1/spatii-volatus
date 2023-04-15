@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace network_objects
+namespace spaceflight_simulator.network_objects.datatypes
 {
     public abstract class IntegerTemplate<T> : NetworkedDataObject<T>
     {
@@ -54,6 +54,11 @@ namespace network_objects
         {
             return value.Value;
         }
+
+        public static implicit operator Integer16(short value)
+        {
+            return new Integer16(value);
+        }
     }
 
     public sealed class Integer32 : IntegerTemplate<int>
@@ -88,6 +93,11 @@ namespace network_objects
         {
             return value.Value;
         }
+
+        public static implicit operator Integer32(int value)
+        {
+            return new Integer32(value);
+        }
     }
 
     public sealed class Integer64 : IntegerTemplate<long>
@@ -116,6 +126,11 @@ namespace network_objects
         public static explicit operator long(Integer64 value)
         {
             return value.Value;
+        }
+
+        public static implicit operator Integer64(long value)
+        {
+            return new Integer64(value);
         }
     }
 }

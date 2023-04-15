@@ -4,11 +4,13 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace network_objects
+using spaceflight_simulator.network_objects.datatypes;
+
+namespace spaceflight_simulator.network_objects
 {
     public sealed class SerialisationManager
     {
-        private static Type[] _registered_types = { typeof(Vector3), typeof(String), typeof(Integer16), typeof(Integer32), typeof(Integer64), typeof(Float32), typeof(Float64), typeof(BooleanFlags) };
+        private static Type[] _registered_types = { typeof(Vector3), typeof(spaceflight_simulator.network_objects.datatypes.String), typeof(Integer16), typeof(Integer32), typeof(Integer64), typeof(Float32), typeof(Float64), typeof(BooleanFlags) };
         private Dictionary<int, Type> _registered_type_by_id = new Dictionary<int, Type>(from Type type in _registered_types select new KeyValuePair<int, Type>((int)type.GetProperty("ID").GetValue(type.GetConstructor(Type.EmptyTypes).Invoke(null)), type));
         
         private static int id_n_bytes = 4;

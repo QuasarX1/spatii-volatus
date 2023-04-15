@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace network_objects
+namespace spaceflight_simulator.network_objects.datatypes
 {
     public sealed class BooleanFlags : NetworkedDataObject<byte>
     {
@@ -165,6 +165,20 @@ namespace network_objects
         public static explicit operator bool[](BooleanFlags value)
         {
             return new bool[8] { value.Flag0, value.Flag1, value.Flag2, value.Flag3, value.Flag4, value.Flag5, value.Flag6, value.Flag7 };
+        }
+
+        public static implicit operator BooleanFlags(bool[] value)
+        {
+            var new_object = new BooleanFlags();
+            new_object.Flag0 = value[0];
+            new_object.Flag0 = value[1];
+            new_object.Flag0 = value[2];
+            new_object.Flag0 = value[3];
+            new_object.Flag0 = value[4];
+            new_object.Flag0 = value[5];
+            new_object.Flag0 = value[6];
+            new_object.Flag0 = value[7];
+            return new_object;
         }
     }
 }

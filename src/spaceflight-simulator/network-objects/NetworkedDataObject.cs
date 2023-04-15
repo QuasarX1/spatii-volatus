@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace network_objects
+namespace spaceflight_simulator.network_objects.datatypes
 {
     public abstract class NetworkedDataObject : _NetworkedDataObject
     {
@@ -70,57 +70,6 @@ namespace network_objects
         public override string? ToString()
         {
             return String_Conversion();
-        }
-
-
-
-        public static implicit operator NetworkedDataObject(System.Numerics.Vector3 value)
-        {
-            return new Vector3(value);
-        }
-
-        public static implicit operator NetworkedDataObject(string value)
-        {
-            return new String(value);
-        }
-
-        public static implicit operator NetworkedDataObject(short value)
-        {
-            return new Integer16(value);
-        }
-
-        public static implicit operator NetworkedDataObject(int value)
-        {
-            return new Integer32(value);
-        }
-
-        public static implicit operator NetworkedDataObject(long value)
-        {
-            return new Integer64(value);
-        }
-
-        public static implicit operator NetworkedDataObject(float value)
-        {
-            return new Float32(value);
-        }
-
-        public static implicit operator NetworkedDataObject(double value)
-        {
-            return new Float64(value);
-        }
-
-        public static implicit operator NetworkedDataObject(bool[] value)
-        {
-            var new_object = new BooleanFlags();
-            new_object.Flag0 = value[0];
-            new_object.Flag0 = value[1];
-            new_object.Flag0 = value[2];
-            new_object.Flag0 = value[3];
-            new_object.Flag0 = value[4];
-            new_object.Flag0 = value[5];
-            new_object.Flag0 = value[6];
-            new_object.Flag0 = value[7];
-            return new_object;
         }
     }
 

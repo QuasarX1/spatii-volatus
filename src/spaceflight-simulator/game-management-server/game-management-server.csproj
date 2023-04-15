@@ -3,11 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>game_management_server</RootNamespace>
+    <RootNamespace>spaceflight_simulator.game_management_server</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <Import Project="..\network-objects\network-objects.projitems" Label="Shared" />
+
+  <Import Project="..\messages\messages.projitems" Label="Shared" />
 
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace network_objects
+namespace spaceflight_simulator.network_objects.datatypes
 {
     public sealed class String : NetworkedDataObject<string>
     {
@@ -49,9 +49,14 @@ namespace network_objects
             return Value;
         }
 
-        public static explicit operator string(String value)
+        public static explicit operator string(spaceflight_simulator.network_objects.datatypes.String value)
         {
             return value.Value;
+        }
+
+        public static implicit operator spaceflight_simulator.network_objects.datatypes.String(string value)
+        {
+            return new spaceflight_simulator.network_objects.datatypes.String(value);
         }
     }
 }

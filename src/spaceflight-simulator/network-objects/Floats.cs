@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace network_objects
+namespace spaceflight_simulator.network_objects.datatypes
 {
     public abstract class FloatTemplate<T> : NetworkedDataObject<T>
     {
@@ -52,6 +52,11 @@ namespace network_objects
         {
             return value.Value;
         }
+
+        public static implicit operator Float32(float value)
+        {
+            return new Float32(value);
+        }
     }
 
     public sealed class Float64 : FloatTemplate<double>
@@ -80,6 +85,11 @@ namespace network_objects
         public static explicit operator double(Float64 value)
         {
             return value.Value;
+        }
+
+        public static implicit operator Float64(double value)
+        {
+            return new Float64(value);
         }
     }
 }
