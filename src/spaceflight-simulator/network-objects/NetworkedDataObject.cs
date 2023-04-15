@@ -6,6 +6,8 @@ namespace network_objects
 {
     public abstract class NetworkedDataObject : _NetworkedDataObject
     {
+        protected object _value { get; set; }
+
         public NetworkedDataObject(int class_id, int serialised_length)
         {
             ID = class_id;
@@ -124,7 +126,7 @@ namespace network_objects
 
     public abstract class NetworkedDataObject<T> : NetworkedDataObject
     {
-        public T Value { get; protected set; }
+        public T Value { get { return (T)_value; } protected set { _value = value; } }
         public NetworkedDataObject(int class_id, int serialised_length) : base(class_id, serialised_length) { }
     }
 }

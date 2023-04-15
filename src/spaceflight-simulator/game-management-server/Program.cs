@@ -1,4 +1,5 @@
-﻿using System;
+﻿using network_objects;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -33,23 +34,18 @@ namespace game_management_server
 
         static async Task Main(string[] args)
         {
+            var message_types = Message.MakeLookup(new Type[] { typeof(TestServerMessage) });
+
             communicator = new network_objects.Communicator(PORT, CancelToken);
-            communicator.OnRecieveMessage += PrintX;
+            communicator.ParseMessageOnReceive(message_types, PrintTestMessage);
             communicator.StartReciever();
             communicator.StartSender();
             await communicator.CompleteOnKill();
         }
 
-        private static void PrintX(Tuple<Type[], network_objects.NetworkedDataObject[], SocketReceiveFromResult> data)
+        private static void PrintTestMessage(Message message, SocketReceiveFromResult source)
         {
-            for (int i = 0; i < data.Item1.Length; i++)
-            {
-                Console.WriteLine();
-            }
-            Console.WriteLine(data.Item1[0]);
-            Console.WriteLine(((network_objects.Vector3)data.Item2[0]).X);
-            Console.WriteLine(data.Item1[1]);
-            Console.WriteLine(((network_objects.String)data.Item2[1]).Value);
+            Console.WriteLine(message);
         }
     }
 }

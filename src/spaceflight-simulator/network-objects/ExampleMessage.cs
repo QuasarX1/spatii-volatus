@@ -17,5 +17,10 @@ namespace network_objects
         {
             data = new NetworkedDataObject[] { new Integer32(value) };
         }
+
+        public override string GetDisplayString()
+        {
+            return data[0].ToString();
+        }
     }
 }

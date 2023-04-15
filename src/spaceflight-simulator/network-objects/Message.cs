@@ -7,6 +7,26 @@ namespace network_objects
 {
     public abstract class Message
     {
+        public static Dictionary<int, Type> MakeLookup(Type[] types)
+        {
+            var lookup = new Dictionary<int, Type>();
+            for (int i = 0; i < types.Length; i++)
+            {
+                var constructor = types[i].GetConstructor(Type.EmptyTypes);
+                if (constructor != null)
+                {
+                    lookup.Add(((Message)constructor.Invoke(null)).MessageTypeID, types[i]);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Type provided is not compatible. It must define a blank constructor.");
+                }
+            }
+            return lookup;
+        }
+
+
+
         protected NetworkedDataObject[] data;
 
         public readonly short MessageTypeID;
@@ -36,6 +56,13 @@ namespace network_objects
         internal NetworkedDataObject[] GetData()
         {
             return data;
+        }
+
+        public abstract string GetDisplayString();
+
+        public override string ToString()
+        {
+            return GetDisplayString();
         }
     }
 }
