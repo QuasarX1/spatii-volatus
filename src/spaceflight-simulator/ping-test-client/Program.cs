@@ -8,6 +8,10 @@ namespace test_client
 {
     internal class Program
     {
+        public const int N_pings = 1000;
+
+
+
         public static readonly CancellationTokenSource ConsoleExitTokenSource = GetUserConsoleCancellationSource();
         public static readonly CancellationToken CancelToken = ConsoleExitTokenSource.Token;
 
@@ -31,27 +35,50 @@ namespace test_client
 
         static async Task Main(string[] args)
         {
-            communicator = new network_objects.Communicator(PORT, SERVER_PORT, IPAddress.Parse("192.168.0.20"));
+            Console.WriteLine($"Connectingto server on {((args.Length > 0) ? args[0] : "192.168.0.20")}:{PORT}");
+            communicator = new network_objects.Communicator(PORT, SERVER_PORT, IPAddress.Parse((args.Length > 0) ? args[0] : "192.168.0.20"));
+            communicator.PingWaitMillis = 1000;
             //communicator.OnRecieveMessage += ;
             communicator.StartReciever();
             communicator.StartSender();
 
-            network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new network_objects.Vector3(50, 0, 0), new network_objects.String("Hello World!") };
+            //network_objects.NetworkedDataObject[] test_data = new network_objects.NetworkedDataObject[] { new network_objects.Vector3(50, 0, 0), new network_objects.String("Hello World!") };
+
+            
 
             Stopwatch stopwatch = new Stopwatch();
 
-            while (!CancelToken.IsCancellationRequested)
+            int successes = 0;
+            int failiours = 0;
+            double[] times = new double[N_pings];
+            for (int i = 0; i < N_pings; i++)
             {
+                if (CancelToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
                 Console.Write("Ping ");
                 stopwatch.Start();
                 if (await communicator.PingAsync(CancelToken))
                 {
                     stopwatch.Stop();
                     Console.WriteLine($"Pong ({stopwatch.Elapsed.TotalMilliseconds} ms)");
-                    stopwatch.Reset();
+                    times[successes] = stopwatch.Elapsed.TotalMilliseconds;
+                    successes++;
                 }
-                //Thread.Sleep(100);
+                else
+                {
+                    failiours++;
+                }
+                stopwatch.Reset();
             }
+
+            Console.WriteLine();
+            Console.WriteLine($"Total number of pings: {successes + failiours}");
+            Console.WriteLine($"Successfull pings: {successes}");
+            Console.WriteLine($"Packet loss: {(double)100 * (double)successes / ((double)successes + (double)failiours)}");
+            Console.WriteLine($"Average responce time: {times[0..successes].Sum() / (double)successes} ms");
 
             communicator.Kill();
         }

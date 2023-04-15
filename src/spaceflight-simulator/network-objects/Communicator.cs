@@ -21,6 +21,8 @@ namespace network_objects
         public IPAddress DefaultAddress => DefaultDestinationEndpoint.Address;
         public int DefaultPort => DefaultDestinationEndpoint.Port;
 
+        public int PingWaitMillis { get; set; } = 5000;
+
         private CancellationTokenSource internalCancellationSource = new CancellationTokenSource();
         private CancellationToken internalCancellationToken => internalCancellationSource.Token;
 
@@ -142,7 +144,7 @@ namespace network_objects
             TaskCompletionSource<bool> completionSource = new TaskCompletionSource<bool>();
             Action reply_handeler = () => completionSource.TrySetResult(true);
             OnPingReturn += reply_handeler;
-            bool result = Task.WaitAll(new Task[] { completionSource.Task }, 5000);
+            bool result = Task.WaitAll(new Task[] { completionSource.Task }, PingWaitMillis);
             OnPingReturn -= reply_handeler;
             return result;
         }
