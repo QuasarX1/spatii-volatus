@@ -11,6 +11,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "network-objects", "network-
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "messages", "messages\messages.shproj", "{8B40EF6F-3B1E-4070-8F88-ACBF5B2302AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "spaceflight-simulator-client\Assembly-CSharp.csproj", "{B26F6BC1-A12B-D26D-264A-3E4654706E95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "spaceflight-simulator-client\Assembly-CSharp-Editor.csproj", "{30A4746F-FAB4-017C-16C3-67BA8498F5DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{84FD5F70-3B1F-438F-BD66-2BDBC4636264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84FD5F70-3B1F-438F-BD66-2BDBC4636264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84FD5F70-3B1F-438F-BD66-2BDBC4636264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26F6BC1-A12B-D26D-264A-3E4654706E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26F6BC1-A12B-D26D-264A-3E4654706E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26F6BC1-A12B-D26D-264A-3E4654706E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26F6BC1-A12B-D26D-264A-3E4654706E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30A4746F-FAB4-017C-16C3-67BA8498F5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30A4746F-FAB4-017C-16C3-67BA8498F5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30A4746F-FAB4-017C-16C3-67BA8498F5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30A4746F-FAB4-017C-16C3-67BA8498F5DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

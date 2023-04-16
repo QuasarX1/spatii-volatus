@@ -9,6 +9,7 @@
     <Import_RootNamespace>spaceflight_simulator.messages</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)LoginMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestServerMessage.cs" />
   </ItemGroup>
 </Project>
