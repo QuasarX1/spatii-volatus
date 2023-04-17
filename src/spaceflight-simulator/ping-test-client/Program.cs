@@ -33,13 +33,13 @@ namespace spaceflight_simulator.ping_test_client
 
 
 
-        private const int PORT = DEFAULT_CLIENT_PORT;
+        private const int PORT = CLIENT_DEFAULT_PORT_UDP;
         private static Communicator communicator;
 
         static async Task Main(string[] args)
         {
             Console.WriteLine($"Connectingto server on {((args.Length > 0) ? args[0] : "192.168.0.20")}:{PORT}");
-            communicator = new Communicator(PORT, SERVER_PORT, IPAddress.Parse((args.Length > 0) ? args[0] : "192.168.0.20"));
+            communicator = new UdpCommunicator(PORT, SERVER_PORT_UDP, IPAddress.Parse((args.Length > 0) ? args[0] : "192.168.0.20"));
             communicator.PingWaitMillis = 1000;
             //communicator.OnRecieveMessage += ;
             communicator.StartReciever();

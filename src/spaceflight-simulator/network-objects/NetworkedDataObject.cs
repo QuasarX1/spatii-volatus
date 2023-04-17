@@ -71,6 +71,132 @@ namespace spaceflight_simulator.network_objects.datatypes
         {
             return String_Conversion();
         }
+
+
+
+        public static explicit operator System.Numerics.Vector3?(NetworkedDataObject value)
+        {
+            try
+            {
+                return ((Vector3)value).Value;
+            }
+            catch (InvalidCastException)
+            {
+                return null;
+            }
+        }
+
+        public static explicit operator string?(NetworkedDataObject value)
+        {
+            try
+            {
+                return ((spaceflight_simulator.network_objects.datatypes.String)value).Value;
+            }
+            catch (InvalidCastException)
+            {
+                return null;
+            }
+        }
+
+        public static explicit operator short?(NetworkedDataObject value)
+        {
+            try
+            {
+                return ((Integer16)value).Value;
+            }
+            catch (InvalidCastException)
+            {
+                return null;
+            }
+        }
+
+        public static explicit operator int?(NetworkedDataObject value)
+        {
+            try
+            {
+                return ((Integer32)value).Value;
+            }
+            catch (InvalidCastException)
+            {
+                try
+                {
+                    return ((Integer16)value).Value;
+                }
+                catch (InvalidCastException)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static explicit operator long?(NetworkedDataObject value)
+        {
+            try
+            {
+                return ((Integer64)value).Value;
+            }
+            catch (InvalidCastException)
+            {
+                try
+                {
+                    return ((Integer32)value).Value;
+                }
+                catch (InvalidCastException)
+                {
+                    try
+                    {
+                        return ((Integer16)value).Value;
+                    }
+                    catch (InvalidCastException)
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
+        public static explicit operator float?(NetworkedDataObject value)
+        {
+            try
+            {
+                return ((Float32)value).Value;
+            }
+            catch (InvalidCastException)
+            {
+                return null;
+            }
+        }
+
+        public static explicit operator double?(NetworkedDataObject value)
+        {
+            try
+            {
+                return ((Float64)value).Value;
+            }
+            catch (InvalidCastException)
+            {
+                try
+                {
+                    return ((Float32)value).Value;
+                }
+                catch (InvalidCastException)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static implicit operator bool[]?(NetworkedDataObject value)
+        {
+            try
+            {
+                return (bool[])(BooleanFlags)value;
+            }
+            catch (InvalidCastException)
+            {
+                return null;
+            }
+        }
     }
 
     public abstract class NetworkedDataObject<T> : NetworkedDataObject

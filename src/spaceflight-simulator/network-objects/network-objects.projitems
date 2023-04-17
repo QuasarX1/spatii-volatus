@@ -19,6 +19,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)SerialisationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)String.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TcpCommunicator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UdpCommunicator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Vector3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)_NetworkedDataObject.cs" />
   </ItemGroup>
